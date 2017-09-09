@@ -2,7 +2,8 @@ FROM jupyter/datascience-notebook:latest
 
 RUN pip install jupyter_contrib_nbextensions \
                 jupyter_nbextensions_configurator statsmodels graphviz \
-                python-igraph tqdm pymc3 gensim implicit annoy keras
+                python-igraph tqdm pymc3 gensim implicit annoy keras \
+                tslearn tsfresh arrow pystan tensorflow-gpu
 
 RUN jupyter nbextensions_configurator enable
 RUN jupyter contrib nbextension install --user
