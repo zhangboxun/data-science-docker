@@ -2,8 +2,8 @@ FROM jupyter/datascience-notebook:latest
 
 RUN pip install jupyter_contrib_nbextensions \
                 jupyter_nbextensions_configurator statsmodels graphviz \
-                python-igraph tqdm pymc3 gensim implicit annoy keras \
-                tslearn tsfresh arrow pystan tensorflow-gpu
+                python-igraph tqdm pymc3 gensim implicit annoy \
+                tslearn tsfresh arrow pystan fbprophet
 
 RUN jupyter nbextensions_configurator enable
 RUN jupyter contrib nbextension install --user
@@ -37,3 +37,10 @@ RUN cd /home/$NB_USER && \
   make -j4
 
 ENV PYTHONPATH /home/$NB_USER/xgboost/python-package
+
+# Install Tensorflow
+RUN conda install --quiet --yes \
+    'tensorflow=1.3*' \
+    'keras=2.0*' && \
+    conda clean -tipsy && \
+    fix-permissions $CONDA_DIR
